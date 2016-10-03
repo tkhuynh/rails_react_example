@@ -23,32 +23,41 @@ var EventApplication = React.createClass({
     this.setState({ events: events });
   },
   
-handleAdd: function(event) {
-    var events = this.state.events;
-    events.unshift(event);
-    this.setState({ events: events });
+  handleAdd: function(event) {
+      var events = this.state.events;
+      events.unshift(event);
+      this.setState({ events: events });
   },
-render: function() {
-  return(
-    <div className="container">
-      <div className="jumbotron">
-        <h1>ReactJS Tutorial</h1>
-        <p>by Piotr Jaworski</p>
-      </div>
-      <div className="row">
-        <div className="col-md-4">
-          <SearchForm handleSearch={this.handleSearch} />
+
+  handleDeleteRecord: function(event) {
+    var events = this.state.events.slice();
+    var index = events.indexOf(event);
+    events.splice(index, 1);
+    this.setState({ events: events});
+  },  
+
+  render: function() {
+    return(
+      <div className="container">
+        <div className="jumbotron">
+          <h1>ReactJS Tutorial</h1>
+          <p>by Piotr Jaworski</p>
         </div>
-        <div className="col-md-8">
-          <NewForm handleAdd={this.handleAdd} />
+        <div className="row">
+          <div className="col-md-4">
+            <SearchForm handleSearch={this.handleSearch} />
+          </div>
+          <div className="col-md-8">
+            <NewForm handleAdd={this.handleAdd} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <EventTable events={this.state.events} 
+                        handleDeleteRecord={this.handleDeleteRecord} />
+          </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-12">
-          <EventTable events={this.state.events} />
-        </div>
-      </div>
-    </div>
-  )
-}
+    )
+  }
 });

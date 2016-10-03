@@ -1,4 +1,6 @@
 class Api::EventsController < ApplicationController
+	before_action :set_event, only: [:destroy]
+
 	def index
 		render json: Event.all.order("created_at DESC")
 	end
@@ -12,6 +14,11 @@ class Api::EventsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@event.destroy
+		head :no_content
+	end
+
 	def search
     query = params[:query]
     events = Event.where('name ILIKE ? OR place ILIKE ? OR description ILIKE ?',
@@ -23,6 +30,10 @@ class Api::EventsController < ApplicationController
 
   def event_params
   	params.require(:event).permit(:name, :description, :event_Date, :place)
+  end
+
+  def set_event
+  	@event = Event.find(params[:id])
   end
 
 end
