@@ -1,5 +1,5 @@
 class Api::EventsController < ApplicationController
-	before_action :set_event, only: [:destroy]
+	before_action :set_event, only: [:update, :destroy]
 
 	def index
 		render json: Event.all.order("created_at DESC")
@@ -17,6 +17,14 @@ class Api::EventsController < ApplicationController
 	def destroy
 		@event.destroy
 		head :no_content
+	end
+
+	def update
+		if@event.update(event_params)
+			render json: @event
+		else
+			render nothing: true, status: :unprocessable_entity
+		end
 	end
 
 	def search
