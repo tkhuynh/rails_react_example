@@ -47,8 +47,7 @@ var EventApplication = React.createClass({
     return(
       <div className="container">
         <div className="jumbotron">
-          <h1>ReactJS Tutorial</h1>
-          <p>by Piotr Jaworski</p>
+          <h1>React + Ruby on Rails Example</h1>
         </div>
         <div className="row">
           <div className="col-md-4">
