@@ -7,6 +7,10 @@ var EventTable = React.createClass({
     this.props.handleUpdateRecord(old_event, event)
   },
 
+  handleSortColumn: function(name, order) {
+    this.props.handleSortColumn(name, order);
+  },
+
   render: function() {
     var events = [];
     this.props.events.forEach(function(event) {
@@ -19,11 +23,35 @@ var EventTable = React.createClass({
       <table className="table table-striped">
         <thead>
           <tr>
-            <th className="col-md-2">Name</th>
-            <th className="col-md-2">Date</th>
-            <th className="col-md-3">Place</th>
-            <th className="col-md-3">Description</th>
-            <th className="col-md-3">Actions</th>
+            <th className="col-md-2 sortable">
+              <SortColumn name="name"
+                          text="Name"
+                          sort={this.props.sort}
+                          order={this.props.order} 
+                          handleSortColumn={this.handleSortColumn} />
+            </th>
+            <th className="col-md-2 sortable">
+              <SortColumn name="event_date"
+                          text="Date"
+                          sort={this.props.sort}
+                          order={this.props.order}
+                          handleSortColumn={this.handleSortColumn} />
+            </th>
+            <th className="col-md-3 sortable">
+              <SortColumn name="place"
+                          text="Place"
+                          sort={this.props.sort}
+                          order={this.props.order}
+                          handleSortColumn={this.handleSortColumn} />
+            </th>
+            <th className="col-md-3 sortable">
+              <SortColumn name="description"
+                          text="Description"
+                          sort={this.props.sort}
+                          order={this.props.order}
+                          handleSortColumn={this.handleSortColumn} />
+            </th>
+            <th className="col-md-2">Actions</th>
           </tr>
         </thead>
         <tbody>
